@@ -45,7 +45,7 @@ spec:
        
         stage ('building docker image') {
             when {
-                branch 'main'
+                branch 'test1'
             }
             steps {
                 dir ('jenkins-app') {
