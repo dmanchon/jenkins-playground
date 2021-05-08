@@ -22,7 +22,7 @@ spec:
     - cat
     tty: true
   - name: buildctl
-    image: busybox
+    image: dmanchon/buildctl
     command:
     - cat
     env:
