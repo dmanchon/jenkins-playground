@@ -40,6 +40,7 @@ spec:
       steps {
         dir ('app') {
           container('buildctl') {
+            sh 'pwd'
             sh 'buildctl --version'
           }
 
@@ -48,7 +49,6 @@ spec:
           }
 
           container('buildctl') {
-            sh 'DOCKER_BUILDKIT=1 docker  --version'
             sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=.'
           }
 
