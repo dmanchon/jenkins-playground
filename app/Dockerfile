@@ -1,6 +1,6 @@
-FROM gcr.io/atlas-images/python-poetry:3.8.8-buster as base
+FROM renovate/poetry as base
 
-COPY --chown=onnauser:onnagroup ./ /app
+COPY --chown=onnauser:onnagroup ./ .
 
 EXPOSE 8080
 CMD ["make", "run-http"]
