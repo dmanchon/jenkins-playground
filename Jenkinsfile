@@ -22,7 +22,7 @@ spec:
     - cat
     tty: true
   - name: buildctl
-    image: agisoft/buildctl
+    image: shopstic/buildctl
     command:
     - cat
     env:
