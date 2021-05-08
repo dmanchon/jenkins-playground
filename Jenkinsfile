@@ -49,7 +49,7 @@ spec:
           }
 
           container('buildctl') {
-            sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=test:one'
+            sh "buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=test:one"
           }
 
 
