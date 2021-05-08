@@ -22,7 +22,7 @@ spec:
     - cat
     tty: true
   - name: buildctl
-    image: shopstic/buildctl
+    image: busybox
     command:
     - cat
     env:
@@ -48,7 +48,7 @@ spec:
           }
 
           container('buildctl') {
-            sh 'buildctl --version'
+            sh 'DOCKER_BUILDKIT=1 docker  --version'
             sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=.'
           }
 
