@@ -29,10 +29,6 @@ spec:
     - name: BUILDKIT_HOST
       value: "tcp://buildkitd.default.svc.cluster.local:1234"
     tty: true
-  - name: gcloud
-    image: google/cloud-sdk:latest
-    command:
-    - cat
 """
    }
 }
