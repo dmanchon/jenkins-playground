@@ -43,12 +43,8 @@ spec:
                         sh 'python --version'
                     }
 
-                    container(name: 'buildctl', shell: 'sh') {
-                        sh 'pwd'
-                        sh """
-                        #!sh
-                        buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=.
-                        """
+                    container('buildctl') {
+                        sh 'buildctl build --frontend dockerfile.v0 --local context=./app/ --local dockerfile=./app/'
                     }
                 }
             }
