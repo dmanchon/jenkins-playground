@@ -26,7 +26,8 @@ spec:
     command:
     - cat
     env:
-    - BUILDKIT_HOST=tcp://buildkitd.default.svc.cluster.local:1234
+    - name: BUILDKIT_HOST
+      value: "tcp://buildkitd.default.svc.cluster.local:1234"
     tty: true
   - name: gcloud
     image: google/cloud-sdk:latest
@@ -38,7 +39,7 @@ spec:
     stages {
         stage ('building docker image') {
             when {
-                branch 'test1'
+                branch 'test2'
             }
             steps {
                 dir ('jenkins-app') {
