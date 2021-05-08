@@ -43,10 +43,10 @@ spec:
                         sh 'python --version'
                     }
 
-                    container(name: 'buildctl', shell: '/busybox/sh') {
+                    container(name: 'buildctl', shell: 'sh') {
                         sh 'pwd'
                         sh """
-                        #!/busybox/sh
+                        #!sh
                         buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=.
                         """
                     }
