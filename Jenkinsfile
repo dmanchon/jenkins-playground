@@ -60,16 +60,10 @@ spec:
   }
   post {
     success {
-      slackSend (
-        color: '#00FF00',
-        message: "Hurray! CI/CD is *Success* \n*Trigger: * `${env.JOB_NAME}` #${env.BUILD_NUMBER}\n<${env.BUILD_URL}|OPEN JENKINS BUILD>\n*GitHub: * ${GIT_BRANCH} >> <${GIT_URL}|Open Github>"
-      )
+      echo 'Hurray!'
     }
     failure {
-      slackSend (
-        color: '#FF0000',
-        message: "Oops, something's wrong; CI/CD *Failed* \n*Trigger: * `${env.JOB_NAME}` #${env.BUILD_NUMBER}\n<${env.BUILD_URL}|OPEN JENKINS BUILD>\n*GitHub: * ${GIT_BRANCH} >> <${GIT_URL}|Open Github>"
-      )
+      echo 'Wowwowwow!'
     }
   }
 }
