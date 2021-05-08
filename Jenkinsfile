@@ -1,5 +1,5 @@
 pipeline {
-    agent {
+  agent {
     kubernetes {
       defaultContainer 'jnlp'
       label 'dani'
@@ -30,39 +30,40 @@ spec:
       value: "tcp://buildkitd.default.svc.cluster.local:1234"
     tty: true
 """
-   }
-}
-    stages {
-        stage ('building docker image') {
-            when {
-                branch 'test2'
-            }
-            steps {
-                dir ('jenkins-app') {
-                    container('python-385'){
-                        sh 'python --version'
-                    }
-
-                    container('buildctl') {
-                        sh 'buildctl build --frontend dockerfile.v0 --local context=./app/ --local dockerfile=./app/'
-                    }
-                }
-            }
-        }
-
     }
-    post {
-        success {
-            slackSend (
-                color: '#00FF00',
-                message: "Hurray! CI/CD is *Success* \n*Trigger: * `${env.JOB_NAME}` #${env.BUILD_NUMBER}\n<${env.BUILD_URL}|OPEN JENKINS BUILD>\n*GitHub: * ${GIT_BRANCH} >> <${GIT_URL}|Open Github>"
-            )
+  }
+  stages {
+    stage ('building docker image') {
+      when {
+        branch 'test2'
+      }
+      steps {
+        dir ('app') {
+          container('buildctl') {
+            sh 'buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=.'
+          }
+
+          container('python-385'){
+            sh 'python --version'
+          }
+
         }
-        failure {
-            slackSend (
-                color: '#FF0000',
-                message: "Oops, something's wrong; CI/CD *Failed* \n*Trigger: * `${env.JOB_NAME}` #${env.BUILD_NUMBER}\n<${env.BUILD_URL}|OPEN JENKINS BUILD>\n*GitHub: * ${GIT_BRANCH} >> <${GIT_URL}|Open Github>"
-            )
-        }
+      }
     }
+
+  }
+  post {
+    success {
+      slackSend (
+        color: '#00FF00',
+        message: "Hurray! CI/CD is *Success* \n*Trigger: * `${env.JOB_NAME}` #${env.BUILD_NUMBER}\n<${env.BUILD_URL}|OPEN JENKINS BUILD>\n*GitHub: * ${GIT_BRANCH} >> <${GIT_URL}|Open Github>"
+      )
+    }
+    failure {
+      slackSend (
+        color: '#FF0000',
+        message: "Oops, something's wrong; CI/CD *Failed* \n*Trigger: * `${env.JOB_NAME}` #${env.BUILD_NUMBER}\n<${env.BUILD_URL}|OPEN JENKINS BUILD>\n*GitHub: * ${GIT_BRANCH} >> <${GIT_URL}|Open Github>"
+      )
+    }
+  }
 }
