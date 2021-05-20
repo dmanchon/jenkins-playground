@@ -21,14 +21,6 @@ spec:
     command:
     - cat
     tty: true
-  - name: buildctl
-    image: dmanchon/buildctl
-    command:
-    - cat
-    env:
-    - name: BUILDKIT_HOST
-      value: "tcp://buildkitd.default.svc.cluster.local:1234"
-    tty: true
 """
     }
   }
@@ -39,18 +31,13 @@ spec:
       }
       steps {
         dir ('app') {
-          container('buildctl') {
-            sh 'pwd'
-            sh 'buildctl --version'
-          }
+
 
           container('python-385'){
             sh 'python --version'
           }
 
-          container('buildctl') {
-            sh "buildctl build --frontend dockerfile.v0 --local context=. --local dockerfile=. --output type=image,name=test:one"
-          }
+
 
 
         }
